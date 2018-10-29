@@ -1,0 +1,14 @@
+html, body {
+    height: 100%;
+}
+
+body {
+	background-color: #eef2ff;
+	background-image: url("http://s.4cdn.org/image/fade-blue.png");
+}
+
+.images_row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
