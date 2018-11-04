@@ -13,7 +13,6 @@ import com.tarasyakubiv.demo.repository.ImageRepository;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-	static final String REGEX_THREAD = "(?<=\"num\":\")[0-9]+(?=\")";
 	private ImageRepository imageRepository;
 	private ApiRequestClient apiRequestClient;
 	

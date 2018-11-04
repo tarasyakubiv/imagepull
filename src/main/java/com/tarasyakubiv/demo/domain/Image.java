@@ -1,15 +1,21 @@
 package com.tarasyakubiv.demo.domain;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Image {
     @Id
     @GeneratedValue
+    @Column(name = "IMAGE_ID")
     private Long id;
 	private String postNumber;
 	private String threadNumber;
@@ -18,6 +24,8 @@ public class Image {
 	private String imageHash;
 	private String name;
 	private LocalDateTime time;
+	@ManyToMany(mappedBy = "images")
+	Set<Tag> tags = new HashSet<>();
 	
 	
 	Image() {}
@@ -77,8 +85,14 @@ public class Image {
 	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
+	
+	public Set<Tag> getTags() {
+		return tags;
+	}
 
-
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
 
 	@Override
 	public int hashCode() {
