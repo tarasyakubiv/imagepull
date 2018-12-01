@@ -9,4 +9,5 @@ public interface ApiRequestClient {
 
 	Set<String> getThreadNumbers(UserRequest req);
 	Set<Image> getImagesFromThreads(Set<String> threadNumbers);
+	void pushImagesToApp(Set<Image> images);
 }

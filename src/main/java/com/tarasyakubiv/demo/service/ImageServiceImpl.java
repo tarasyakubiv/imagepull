@@ -1,5 +1,6 @@
 package com.tarasyakubiv.demo.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,13 @@ public class ImageServiceImpl implements ImageService {
         images.forEach(imageRepository::save);
         images.addAll(savedImages);
 		return images;
+	}
+
+	@Override
+	public void pushImages(UserRequest req) {
+		Set<String> threadNumbers = apiRequestClient.getThreadNumbers(req);
+		Set<Image> savedImages = imageRepository.findByThreadNumberInOrderByTimeAsc(threadNumbers);
+		apiRequestClient.pushImagesToApp(savedImages);
 	}
 
 }

@@ -9,4 +9,6 @@ public interface ImageService {
 	
 	Set<Image> getRequestedImages(UserRequest request);
 
+	void pushImages(UserRequest request);
+
 }

@@ -28,6 +28,12 @@ public class ImagePullController {
     public ResponseEntity<Set<Image>> postResult(@RequestBody UserRequest request) {
         Set<Image> images = imageService.getRequestedImages(request);
         return ResponseEntity.ok(images);
+	}
+	
+
+	@PostMapping("/push")
+    public void pushToPicsApp(@RequestBody UserRequest request) {
+        imageService.pushImages(request);
     }
 	
 

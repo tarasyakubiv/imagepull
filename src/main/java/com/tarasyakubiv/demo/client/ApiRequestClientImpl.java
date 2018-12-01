@@ -8,9 +8,11 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.tarasyakubiv.demo.client.dto.DtoImage;
 import com.tarasyakubiv.demo.client.dto.Request;
 import com.tarasyakubiv.demo.client.dto.UserRequest;
 import com.tarasyakubiv.demo.domain.Image;
@@ -67,11 +69,24 @@ public class ApiRequestClientImpl implements ApiRequestClient {
 		Request request;
 		for (String postNumber : threadNumbers) {
 			request = apiRequestUtil.buildThreadRequest(postNumber);
-			System.out.print(request);
+			System.out.println(request);
 			response = restTemplate.exchange(request.toString(), HttpMethod.GET, apiRequestUtil.getRequestHeader(), String.class);
 			images.addAll(JsonMapper.readJson(response.getBody(), postNumber));
 		}
 		return images;
+	}
+	
+	@Override
+	public void pushImagesToApp(Set<Image> images) {
+		String postRequestURI = apiRequestUtil.getImagePostRequest();
+		images.forEach(image -> {
+			DtoImage dtoImage = new DtoImage(image.getImage(), image.getThumbImage(), image.getName(), 
+								apiRequestUtil.getLinkToPost(image.getThreadNumber(), image.getPostNumber()));
+			HttpEntity<DtoImage> request = new HttpEntity<>(dtoImage);
+
+			ResponseEntity<DtoImage> response = restTemplate.exchange(postRequestURI, HttpMethod.POST, request, DtoImage.class);
+			System.out.println(postRequestURI + "      " + response.getStatusCode());
+		});
 	}
 
 }
