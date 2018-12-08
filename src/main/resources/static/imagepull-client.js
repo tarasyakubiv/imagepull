@@ -15,7 +15,7 @@ $(document).ready(function() {
 
         // Send the data using post
         $.ajax({
-            url: '/imagepull/push',
+            url: '/imagepull',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",

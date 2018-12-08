@@ -2,7 +2,6 @@ package com.tarasyakubiv.demo.service;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Before;
